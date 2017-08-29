@@ -160,13 +160,15 @@ var level = 0; //contador de niveles, para que cambie de mapa
 
 var chuckGif;
 
+var atras;
 
 var t = null;
 /****** FUNCIONALIDAD GAME ******/
 $(document).ready(function(){
     $('h2').text("Este codigo esta con jQuery")
     tableros = $('<div>');
-    $('#level-1').append(tableros);   
+    $('#level-1').append(tableros);
+
     var generaMapa = function(){
         mapa = mapas[level];
         for (var i = 0; i < mapa.length; i++) {
@@ -177,6 +179,13 @@ $(document).ready(function(){
         }
         filas = mapa.length;
         columnas = mapa[0].length;
+
+        atras = $('<button>',{
+            'id' : 'backBtn',
+            'class' : 'waves-effect waves-light btn-large block',
+        });
+
+        atras.text('Atras');
 
         tabla = $('<table>');
         tabla.border = "0";
@@ -219,10 +228,16 @@ $(document).ready(function(){
           tabla.append(fila);
         }
         tableros.append(tabla);
+        tableros.append(atras);
+
+        atras.click(function(){
+            $('#menu').show();
+            $('#level-1').empty();
+        });
     }
 
     $('#start-button').click(function(){
-        $('#menu').css({'display':'none'});
+        $('#menu').hide();
         generaMapa()
     });
 
@@ -269,6 +284,5 @@ $(document).ready(function(){
             break;
             }
         }, 120);
-        })
-
+    })
 });
