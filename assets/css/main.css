@@ -1,4 +1,4 @@
-/*
+/*/*
 Colors:
 #E54E79;
 #E56385;
@@ -14,6 +14,51 @@ body{
 	font-family: 'Raleway', sans-serif;
 }
 
+nav{
+	background-color: #E54E79;
+}
+.brand-logo img{
+	width: 60px;
+	margin-top: 10px;
+}
+.principal{
+	height: 100vh;
+	background-image: url(http://ridesharecodes.com/wp-content/uploads/2017/02/cropped-Lyft-Promo-Codes-car-1.jpg);
+	background-attachment: fixed;
+	background-size: cover;
+	background-position: center;
+	position: relative;
+}
+.principal .caja-blanca{
+	background-color: rgba(237,233,226,1);
+	position: absolute;
+	right: 0;
+	top: 16%;
+	box-sizing: border-box;
+	padding: 40px 60px 50px 40px;
+}
+
+.principal .caja-blanca h2{
+	text-transform: uppercase;
+	font-weight: bold;
+	color: #00B2A9;;
+	font-size: 1.8em;
+}
+
+.principal .caja-blanca h3{
+	text-transform: uppercase;
+	font-weight: 300;
+	color: #75726C;
+	font-size: 1em;
+}
+
+.principal .caja-blanca .btn-big{
+	border-radius: 15px;
+	background-color: #E56385;
+	height: 45px;
+	line-height: 45px;
+}
+
 .juego{
 	background-color: #00B2A9;
 	padding: 40px 0;
@@ -24,7 +69,19 @@ body{
 	height: auto;
 	background-color: #EDE9E2;
 	padding: 40px;
-	margin: 0 auto;
+}
+#formulario{
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+
+}
+button.block{
+	display: block;
+	border-radius: 15px;
+	margin: 5px 0;
 }
 
 .h2-play{
@@ -38,19 +95,48 @@ body{
 	margin-bottom: 80px;
 }
 
-button {
-	padding: 10px;
+.level{
+
+}
+.level:before, .level:after{
+	content: "";
+	display: block;
+	clear: both;
+}
+.taxi, .empty, .visitada{
+	box-sizing: border-box;
+	float: left;
+	width: 10%;
+	height: 80px;
+}
+.empty{
+	background-color: #75726C;
+}
+
+.taxi{
+	background-color: #E56385;
+	background-image: url(../img/car.png);
+	background-size: contain;
+	background-position: center 6px ;
+	background-repeat: no-repeat;
+}
+
+.visitada{
+	background-color: #E54E79;
+}
+
+.page-footer{
+	background-color: #75726C;
 }
 
 /*PROPIEDADES MAPA*/
-tr{
-	margin: 0;
-}
 td {
   width: 20px;
   height: 20px;
   padding: 0;
-  border-radius: 0;
+  border-radius: 1px;
+	position: relative;
+	overflow: visible;
 }
 
 table{
@@ -84,19 +170,16 @@ table{
 }
 
 #img-chuck, #img-nest{
-	width: 60px;
-	height: 60px;
+	width: 40px;
+	height: 40px;
 	float: left;
 	overflow: hidden;
 	position: absolute;
-	bottom: 0;
-	left: -18px;
+	bottom: 20%;
+	left: -50%;
 	z-index: 10000;
 }
-.transporta{
-	background-image: url(..img/pelota.png);
-	background-size: 100%;
-}
+
 /* Boton level*/
 #inputEspacio {
  width: 230px;
