@@ -232,7 +232,7 @@ $(document).ready(function(){
           arrayMapa[x+a][y+b].append(chuckGif);
     	    if( mapa[x+a][y+b]=="W" ){
     	      level++;
-    		    tableros.remove(tabla);
+    		    tableros.empty();
     		    generaMapa();
             clearTimeout(t);
             return;
@@ -243,7 +243,7 @@ $(document).ready(function(){
     			t = setTimeout(function(){ mover(a, b) }, 150);
           if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
     	       clearTimeout(t);
-    	    	 tableros.remove(tabla);
+    	    	 tableros.empty();
     		     generaMapa();
     	    }
     	} else {
