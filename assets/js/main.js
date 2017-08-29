@@ -186,8 +186,9 @@ $(document).ready(function(){
                 var celda = $('<td>');
                 if (mapa[i][j] == "*") {
                     celda.addClass('pared');
-                    var imgPared = document.createElement('img');
-                        imgPared.src = "assets/img/tnt.png"
+                    var imgPared = $('<img>',{
+                        'src' : "assets/img/tnt.png"
+                    });
                     celda.append(imgPared);
                 } else if(mapa[i][j] == "o") {
                     celda.addClass('inicio')
@@ -200,9 +201,10 @@ $(document).ready(function(){
                     y = j;
             } else if(mapa[i][j] == "W") {
                 celda.addClass('final')
-                nest = document.createElement('img');
-                    nest.setAttribute("id",'img-nest')
-                    nest.src = "assets/img/nido.png"
+                nest = $('<img>',{
+                    "id" :'img-nest',
+                    "src" : "assets/img/nido.png"
+                });
                 celda.append(nest);
            } else if(mapa[i][j] == "I") {
                 celda.addClass('transporta');
@@ -226,8 +228,8 @@ $(document).ready(function(){
 
     var mover = function(a,b) {
       if(mapa[x+a][y+b] != "*"){
-          arrayMapa[x][y].remove("#img-chuck");
-          arrayMapa[x+a][y+b].append("#img-chuck");
+          arrayMapa[x][y].empty();
+          arrayMapa[x+a][y+b].append(chuckGif);
     	    if( mapa[x+a][y+b]=="W" ){
     	      level++;
     		    tableros.remove(tabla);
