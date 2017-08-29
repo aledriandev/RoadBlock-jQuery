@@ -160,6 +160,8 @@ var level = 0; //contador de niveles, para que cambie de mapa
 
 var chuckGif;
 
+
+var t = null;
 /****** FUNCIONALIDAD GAME ******/
 $(document).ready(function(){
     $('h2').text("Este codigo esta con jQuery")
@@ -179,36 +181,37 @@ $(document).ready(function(){
         tabla = $('<table>');
         tabla.border = "0";
         for (var i = 0; i < filas; i++) {
-            var fila = document.createElement('tr');
+            var fila = $('<tr>');
             for (var j = 0; j < columnas; j++) {
-                var celda = document.createElement('td');
+                var celda = $('<td>');
                 if (mapa[i][j] == "*") {
-                    celda.setAttribute('class', 'pared');
+                    celda.addClass('pared');
                     var imgPared = document.createElement('img');
                         imgPared.src = "assets/img/tnt.png"
-                    celda.appendChild(imgPared);
+                    celda.append(imgPared);
                 } else if(mapa[i][j] == "o") {
-                    celda.setAttribute('class','inicio')
-                    chuckGif = document.createElement('img');
-                        chuckGif.setAttribute("id",'img-chuck')
-                        chuckGif.src = "assets/img/angry.gif"
-                    celda.appendChild(chuckGif);
+                    celda.addClass('inicio')
+                    chuckGif = $('<img>',{
+                        "id":'img-chuck',
+                        "src": "assets/img/angry.gif"
+                    });
+                    celda.append(chuckGif);
                     x = i;
                     y = j;
             } else if(mapa[i][j] == "W") {
-                celda.setAttribute('class','final')
+                celda.addClass('final')
                 nest = document.createElement('img');
                     nest.setAttribute("id",'img-nest')
                     nest.src = "assets/img/nido.png"
-                celda.appendChild(nest);
+                celda.append(nest);
            } else if(mapa[i][j] == "I") {
-                celda.setAttribute('class','transporta');
+                celda.addClass('transporta');
                 xTrans.push(i);
                 yTrans.push(j);
            }else{
-                celda.setAttribute('class','blanco');
+                celda.addClass('blanco');
            }
-           fila.appendChild(celda);
+           fila.append(celda);
            arrayMapa[i][j] = celda;
           }
           tabla.append(fila);
@@ -221,69 +224,49 @@ $(document).ready(function(){
         generaMapa()
     });
 
+    var mover = function(a,b) {
+      if(mapa[x+a][y+b] != "*"){
+          arrayMapa[x][y].remove("#img-chuck");
+          arrayMapa[x+a][y+b].append("#img-chuck");
+    	    if( mapa[x+a][y+b]=="W" ){
+    	      level++;
+    		    tableros.remove(tabla);
+    		    generaMapa();
+            clearTimeout(t);
+            return;
+    		  }
+    		  x=x+a;
+    		  y=y+b;
+
+    			t = setTimeout(function(){ mover(a, b) }, 150);
+          if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
+    	       clearTimeout(t);
+    	    	 tableros.remove(tabla);
+    		     generaMapa();
+    	    }
+    	} else {
+    		  clearTimeout(t);
+    	}
+    }
+
+    $(document).keyup(function(evento){
+        evento.preventDefault();
+        var tt = setTimeout ( function() {
+          switch(evento.keyCode){
+            case 38: //UP
+                mover(-1, 0);
+            break;
+            case 40: //down
+                mover(1, 0);
+            break;
+            case 37: //LEFT
+                 mover(0, -1);
+            break;
+            case 39: //rigth
+                mover(0, 1);
+            break;
+            }
+        }, 120);
+        })
 
 });
-
-
-
-
-//keycode de las teclas
-var teclas = {
-  UP: 38,
-  DOWN: 40,
-  LEFT: 37,
-  RIGHT: 39
-};
-
-var t = null;
-
-//evento
-document.addEventListener("keydown", movimiento);
-
-function mover(a,b) {
-  if(mapa[x+a][y+b] != "*"){
-    if ( true){
-      arrayMapa[x][y].removeChild(chuckGif);
-      arrayMapa[x+a][y+b].appendChild(chuckGif);
-	    if( mapa[x+a][y+b]=="W" ){
-	      level++;
-		    tableros.removeChild(tabla);
-		    generaMapa();
-        clearTimeout(t);
-        return;
-		  }
-		  x=x+a;
-		  y=y+b;
-
-			t = setTimeout(function(){ mover(a, b) }, 150);
-	    }
-      if( x == 0 || y == 0 || x == filas -1 || y == columnas-1){
-	       clearTimeout(t);
-	    	 tableros.removeChild(tabla);
-		     generaMapa();
-	    }
-	} else {
-		  clearTimeout(t);
-	}
-}
-
-
-function movimiento(evento){
-	evento.preventDefault();
-	var tt = setTimeout ( function() {
-	  switch(evento.keyCode){
-	    case teclas.UP:
-	    	mover(-1, 0);
-	    break;
-	    case teclas.DOWN:
-	    	mover(1, 0);
-	    break;
-	    case teclas.LEFT:
-	    	 mover(0, -1);
-	    break;
-	    case teclas.RIGHT:
-	    	mover(0, 1);
-	    break;
-	 	}
-	}, 120);
-}
